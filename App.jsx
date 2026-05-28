@@ -3,7 +3,24 @@ import { initializeApp } from 'firebase/app'
 import { getDatabase, ref, onValue, set } from 'firebase/database'
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 🔥 PASO 1: PEGA AQUÍ TU CONFIGURACIÓN DE FIREBASE
+// 🔥 // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDfJrHhYfo2-qXi50dVLoAt-CNc7_ddJWA",
+  authDomain: "polla-mundialista-96aa1.firebaseapp.com",
+  databaseURL: "https://polla-mundialista-96aa1-default-rtdb.firebaseio.com",
+  projectId: "polla-mundialista-96aa1",
+  storageBucket: "polla-mundialista-96aa1.firebasestorage.app",
+  messagingSenderId: "408399682887",
+  appId: "1:408399682887:web:fe5c08e9723312163d4062"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);PASO 1: PEGA AQUÍ TU CONFIGURACIÓN DE FIREBASE
 //    (la obtienes en console.firebase.google.com → tu proyecto → </> → Config)
 // ─────────────────────────────────────────────────────────────────────────────
 const firebaseConfig = {
