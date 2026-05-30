@@ -15,9 +15,6 @@ const firebaseConfig = {
   messagingSenderId: "408399682887",
   appId: "1:408399682887:web:fe5c08e9723312163d4062"
 };
-
-
-
 // ─────────────────────────────────────────────────────────────────────────────
 
 const firebaseApp = initializeApp(firebaseConfig)
@@ -36,7 +33,7 @@ const KO_KEYS = {'Ronda de 32':'R32','Octavos de Final':'R16','Cuartos de Final'
 const WC2026 = {
   A:[{name:'México',flag:'🇲🇽'},{name:'Corea del Sur',flag:'🇰🇷'},{name:'Sudáfrica',flag:'🇿🇦'},{name:'Chequia',flag:'🇨🇿'}],
   B:[{name:'Canadá',flag:'🇨🇦'},{name:'Suiza',flag:'🇨🇭'},{name:'Qatar',flag:'🇶🇦'},{name:'Bosnia-Herz.',flag:'🇧🇦'}],
-  C:[{name:'Brasil',flag:'🇧🇷'},{name:'Marruecos',flag:'🇲🇦'},{name:'Escocia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿'},{name:'Haití',flag:'🇭🇹'}],
+  C:[{name:'Brasil',flag:'🇧🇷'},{name:'Marruecos',flag:'🇲🇦'},{name:'Escocia',flag:'🏴 SCO'},{name:'Haití',flag:'🇭🇹'}],
   D:[{name:'Estados Unidos',flag:'🇺🇸'},{name:'Paraguay',flag:'🇵🇾'},{name:'Australia',flag:'🇦🇺'},{name:'Turquía',flag:'🇹🇷'}],
   E:[{name:'Alemania',flag:'🇩🇪'},{name:'Curazao',flag:'🇨🇼'},{name:'C. de Marfil',flag:'🇨🇮'},{name:'Ecuador',flag:'🇪🇨'}],
   F:[{name:'Países Bajos',flag:'🇳🇱'},{name:'Japón',flag:'🇯🇵'},{name:'Túnez',flag:'🇹🇳'},{name:'Suecia',flag:'🇸🇪'}],
@@ -45,7 +42,7 @@ const WC2026 = {
   I:[{name:'Francia',flag:'🇫🇷'},{name:'Senegal',flag:'🇸🇳'},{name:'Noruega',flag:'🇳🇴'},{name:'Irak',flag:'🇮🇶'}],
   J:[{name:'Argentina',flag:'🇦🇷'},{name:'Argelia',flag:'🇩🇿'},{name:'Austria',flag:'🇦🇹'},{name:'Jordania',flag:'🇯🇴'}],
   K:[{name:'Portugal',flag:'🇵🇹'},{name:'Colombia',flag:'🇨🇴'},{name:'Uzbekistán',flag:'🇺🇿'},{name:'RD Congo',flag:'🇨🇩'}],
-  L:[{name:'Inglaterra',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},{name:'Croacia',flag:'🇭🇷'},{name:'Ghana',flag:'🇬🇭'},{name:'Panamá',flag:'🇵🇦'}],
+  L:[{name:'Inglaterra',flag:'🏴 ENG'},{name:'Croacia',flag:'🇭🇷'},{name:'Ghana',flag:'🇬🇭'},{name:'Panamá',flag:'🇵🇦'}],
 }
 
 const tl = t => `${t.flag} ${t.name}`
@@ -428,15 +425,18 @@ export default function App(){
   // 🔥 Firebase real-time listener — todos ven los mismos datos al instante
   useEffect(()=>{
     const dbRef=ref(db,DB_PATH)
+    const toArr = v => !v ? [] : Array.isArray(v) ? v : Object.values(v)
     const unsub=onValue(dbRef,(snapshot)=>{
-      const data=snapshot.val()
-      if(data){
-        if(data.participants) setParticipants(data.participants)
-        if(data.results)      setResults(data.results)
-        if(data.predictions)  setPredictions(data.predictions)
-        if(data.lockedPicks)  setLockedPicks(data.lockedPicks)
-        if(data.adminPin)     setAdminPin(data.adminPin)
-      }
+      try {
+        const data=snapshot.val()
+        if(data){
+          if(data.participants) setParticipants(toArr(data.participants))
+          if(data.results)      setResults(data.results||{})
+          if(data.predictions)  setPredictions(data.predictions||{})
+          if(data.lockedPicks)  setLockedPicks(data.lockedPicks||{})
+          if(data.adminPin)     setAdminPin(data.adminPin)
+        }
+      } catch(e){ console.error('Parse error:',e) }
       setLoading(false)
     },(err)=>{console.error('Firebase error:',err);setLoading(false)})
     return ()=>unsub()
