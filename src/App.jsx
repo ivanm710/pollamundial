@@ -7,14 +7,14 @@ import { getDatabase, ref, onValue, set } from 'firebase/database'
 //    (la obtienes en console.firebase.google.com → tu proyecto → </> → Config)
 // ─────────────────────────────────────────────────────────────────────────────
 const firebaseConfig = {
-  apiKey:            "REEMPLAZA_apiKey",
-  authDomain:        "REEMPLAZA_authDomain",
-  databaseURL:       "REEMPLAZA_databaseURL",
-  projectId:         "REEMPLAZA_projectId",
-  storageBucket:     "REEMPLAZA_storageBucket",
-  messagingSenderId: "REEMPLAZA_messagingSenderId",
-  appId:             "REEMPLAZA_appId",
-}
+  apiKey: "AIzaSyDfJrHhYfo2-qXi50dVLoAt-CNc7_ddJWA",
+  authDomain: "polla-mundialista-96aa1.firebaseapp.com",
+  databaseURL: "https://polla-mundialista-96aa1-default-rtdb.firebaseio.com",
+  projectId: "polla-mundialista-96aa1",
+  storageBucket: "polla-mundialista-96aa1.firebasestorage.app",
+  messagingSenderId: "408399682887",
+  appId: "1:408399682887:web:fe5c08e9723312163d4062"
+};
 // ─────────────────────────────────────────────────────────────────────────────
 
 const firebaseApp = initializeApp(firebaseConfig)
